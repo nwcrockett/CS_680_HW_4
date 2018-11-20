@@ -32,11 +32,18 @@ sharp_brightness_level_change = False
 
 previous_brightness_level = 0
 
+filter = True
+
 while True:
     # read camera frame, change to gray scale, get mean of gray scale to obtain brightness levels
     ret, frame = cap.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     brightness_level = gray.mean()
+
+    if filter:
+        gray = gray - 50
+    else:
+        gray = gray + 50
 
     # threshold in the if statement to find if a change in brightness has been detected
     if np.abs(brightness_level - previous_brightness_level) > 10:
@@ -46,9 +53,9 @@ while True:
 
         if last_frame_black:
             # Last image was resulting from a dark screen. Output dark image
-            gray[:] = 50
+            filter = True
         else:
-            gray[:] = 205
+            filter = False
 
     # Display the resulting frame
     cv2.imshow('frame',gray)
