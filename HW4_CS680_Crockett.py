@@ -4,7 +4,16 @@ CS 680 HW 4
 20NOV18
 nwcrockett@alaska.edu
 
-This script will output the 
+This script will output a frame that will adjust the color of the image based on brightness.
+So if a dark image is captured a brightening filter will be applied.
+Reverse if bright image is captured
+
+Can be stopped using the q key
+
+Will also output the time of the detected change of brightness levels
+
+To change threshold you must alter the value at line 42
+if np.abs(brightness_level - previous_brightness_level) > 10:
 """
 
 
